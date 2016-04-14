@@ -1,13 +1,34 @@
+{-|
+  QuadTree module
+  version 2
+  Author: Kathryn McKay
+  
+  Exports this space partitioning type for 2D space.
+-}
 module QuadTree (
   QuadTree(..)
+, quadTreeHeight
 ) where
 
-data QuadTree = QuadTreeEmpty Int
-  | QuadTreeLeaf (Float, Float) [(Float, Float)] Int
-  | QuadTreeSplitNode (QuadTree) (QuadTree) (QuadTree) (QuadTree) Int
+-- | Space partitioning structure.
+data QuadTree = QuadTreeTip
+  | QuadTreeNode { size :: (Double, Double)
+                 , objects :: [(Double, Double)]
+                 , children :: (QuadTree, QuadTree, QuadTree, QuadTree)
+                 , depth :: Int}
   
+-- | Converts 4 tuple to list.
+listifyChildren (x1, x2, x3, x4) = [x1, x2, x3, x4]
+
+-- | Retrieves maximum depth below this node.
+quadTreeHeight :: QuadTree -> Int
+quadTreeHeight tree = case tree of QuadTreeTip -> 0
+                                   tree -> 1 + maximum (map quadTreeHeight
+                                          (listifyChildren(children tree)))
+
+-- | Demonstrates tree structure and contents.
 instance Show QuadTree where
-  show (QuadTreeSplitNode x1 x2 x3 x4 level) = (take level (repeat '│')) ++ "├─\n" ++ show x1 ++ " " ++ show x2 ++ " "
-    ++ show x3 ++ " " ++ show x4
-  show (QuadTreeLeaf _ _ level) = (take level (repeat '│')) ++ "├─leaf\n"
-  show (QuadTreeEmpty level) = (take level (repeat '│')) ++ "├─empty\n"
+  show QuadTreeTip = ""
+  show QuadTreeNode {size=size, objects=objects, children=children, depth=depth}
+    = "\n" ++ take depth (repeat '│') ++ "├─" ++ show objects
+    ++ concat (map show (listifyChildren children))

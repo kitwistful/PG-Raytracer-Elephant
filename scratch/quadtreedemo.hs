@@ -1,21 +1,10 @@
 import QuadTree
 
-quadTree1 = QuadTreeSplitNode
-  (QuadTreeEmpty 1)
-  (QuadTreeEmpty 1)
-  (QuadTreeEmpty 1)
-  (QuadTreeEmpty 1)
-  0
-
-quadTree2 = QuadTreeSplitNode
-  (QuadTreeSplitNode (QuadTreeEmpty 2) (QuadTreeEmpty 2) (QuadTreeEmpty 2) (QuadTreeEmpty 2) 1)
-  (QuadTreeEmpty 1)
-  (QuadTreeEmpty 1)
-  (QuadTreeEmpty 1)
-  0
+quadTree1 = QuadTreeNode { size = (10.0, 10.0), objects = [],
+  children = (QuadTreeTip, QuadTreeTip, QuadTreeTip, QuadTreeTip),
+  depth = 0 }
 
 main = do
-  putStrLn "Quad Tree 1"
-  print quadTree1
-  putStrLn "Quad Tree 2"
-  print quadTree2
+  putStrLn " I think it's working"
+  putStrLn $ show quadTree1
+  putStrLn $ "height: " ++ show (quadTreeHeight quadTree1)
