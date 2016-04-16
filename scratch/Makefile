@@ -4,12 +4,10 @@ OBJECTS = $(subst .hs,.o,$(SOURCES))
 EXEC_OBJECTS = $(subst .hs,,$(EXEC_SOURCES))
 
 all: $(OBJECTS)
-	
+
 %.o : %.hs
-	for i in $(SOURCES); do \
-		ghc $$i; \
-	done
-	
+	ghc $<
+
 clean:
 	rm $(EXEC_OBJECTS)
 	rm *.o *.hi
