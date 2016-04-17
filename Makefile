@@ -5,7 +5,9 @@ prepare:
 	echo No 'prepare' target yet
 
 run:
-	echo No 'run' target yet
+	cd ./src ; \
+	pwd ; \
+	runhaskell QuadTreeDemo.hs
 
 test:
 	echo No 'test' target yet
