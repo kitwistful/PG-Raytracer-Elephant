@@ -1,3 +1,7 @@
+.PHONY : run
+.PHONY : test
+.PHONY : clean
+
 all:
 	echo No 'all' target yet
 
@@ -10,10 +14,17 @@ run:
 	runhaskell QuadTreeDemo.hs
 
 test:
-	echo No 'test' target yet
+	rm -rf test/Scene/Scene/; \
+	mkdir test/Scene/Scene/; \
+	cp src/Scene/* test/Scene/Scene/ ;\
+	cd test/Scene/ ; \
+	runhaskell TestEntity.hs ; \
+	runhaskell TestRectangle.hs ; \
+	runhaskell TestQuadrant.hs ; \
+	runhaskell TestQuadTree.hs
 
 clean:
-	echo No 'clean' target yet
+	rm -rf test/Scene/Scene/
 
 %.o : %.hs
 	ghc $<
