@@ -6,6 +6,5 @@ report will look like can be found in 'ExampleOutput.txt'.
 
 # Features
 - Quadtree partitioning structure
-- Print out ASCII approximation diagram of the scene
 - Print out structure of tree
 - Get reports on test points

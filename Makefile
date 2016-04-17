@@ -2,11 +2,7 @@
 .PHONY : test
 .PHONY : clean
 
-all:
-	echo No 'all' target yet
-
-prepare:
-	echo No 'prepare' target yet
+all: run
 
 run:
 	cd ./src ; \
@@ -25,6 +21,3 @@ test:
 
 clean:
 	rm -rf test/Scene/Scene/
-
-%.o : %.hs
-	ghc $<
