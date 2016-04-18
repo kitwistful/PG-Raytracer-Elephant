@@ -36,7 +36,7 @@ checkInsertHeight =
   do mapM_
       check [
       -- Test with empty tree
-        ([], 0)
+        ([], 1)
 
       -- Test with 1 insertion
       , ([Entity "b" [0.0, 0.0]], 1)

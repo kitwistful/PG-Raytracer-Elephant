@@ -11,7 +11,6 @@ module UI.Parse (
   CommandType(..)
 , helpContent
 , parseCommand
-, parsePoint
 ) where
 
 {-------------------------------------------------------------------------------
@@ -33,16 +32,19 @@ data CommandType = PrintHelpCommand
 {-------------------------------------------------------------------------------
   Private data
 -------------------------------------------------------------------------------}
+-- | Strings versus codes
 namedCommands :: Map.Map String CommandType
 namedCommands = Map.fromList [("print", PrintSceneCommand)
   , ("help", PrintHelpCommand)
   , ("point", QueryPartitionCommand)]
 
+-- | Codes versus flavour text
 commandDescriptions :: Map.Map CommandType String
 commandDescriptions = Map.fromList [(PrintSceneCommand, "output information on scene")
   , (PrintHelpCommand, "show this list of commands")
   , (QueryPartitionCommand, "retrieve corresponding partition for a given x, y")]
 
+-- |
 getCommandDescription :: String -> String
 getCommandDescription name
   | command == CommandError = "ERROR: couldn't match name to command"
@@ -55,12 +57,8 @@ getCommandDescription name
 -------------------------------------------------------------------------------}
 -- | string containing newline separated names of all commands
 helpContent :: String
-helpContent = concat (["[ Available Commands ]\n"]
-  ++ (map (\x -> x ++ " - " ++ show (getCommandDescription x) ++ "\n")
-  (Map.keys namedCommands)))
+helpContent = concat $ map (\x -> x ++ " - " ++ show (getCommandDescription x) ++ "\n")
+  (Map.keys namedCommands)
 
 parseCommand :: String -> CommandType
 parseCommand str = Maybe.fromMaybe CommandError (Map.lookup str namedCommands)
-
-parsePoint :: String -> [Double]
-parsePoint str = [0.0, 0.0] -- TODO impelment: after this 0,0 shows up in output

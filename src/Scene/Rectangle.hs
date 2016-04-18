@@ -1,18 +1,21 @@
 {-------------------------------------------------------------------------------
   Scene/Rectangle.hs
   Author: Kathryn McKay
-
-  Defines an area with an offset and a size.
 -------------------------------------------------------------------------------}
+-- | Functions to manipulate a geometric rectangle.
 module Scene.Rectangle (
   Rectangle(..)
 , center
 , contains
 ) where
 
+-- | Defines an area with an offset and a size.
 data Rectangle = Rectangle { offset :: [Double], size :: [Double] }
-  deriving (Show, Eq)
+  deriving (Eq)
 
+instance Show Rectangle where
+  show (Rectangle offset size) = "(From: " ++ show (offset !! 0) ++ ", " ++ show (offset !! 1) ++ " | To: " ++ show (farCorner !! 0) ++ ", " ++ show (farCorner !! 1) ++ ")"
+    where farCorner = map (\(x,y) -> x + y) (zip offset size)
 -- | Returns the point that lies in the center of the plane.
 center :: Rectangle -> [Double]
 center rectangle = [((fst x)*2 + (snd x))/2

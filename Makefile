@@ -6,7 +6,6 @@ all: run
 
 run:
 	cd ./src ; \
-	pwd ; \
 	runhaskell QuadTreeDemo.hs
 
 test:

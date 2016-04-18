@@ -11,7 +11,10 @@ module Scene.Entity (
 import Scene.OnGrid
 
 data Entity = Entity String [Double]
-  deriving (Show, Eq)
+  deriving (Eq)
+
+instance Show Entity where
+  show (Entity name pt) = "(" ++ name ++ ": " ++ show (pt !! 0) ++ ", " ++ show (pt !! 1) ++ ")"
 
 instance OnGrid Entity where
   coord (Entity _ position) = position
